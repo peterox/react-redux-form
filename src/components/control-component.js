@@ -568,27 +568,23 @@ function createControlClass(s = defaultStrategy) {
         dispatch,
       } = this.props;
 
-      if ((!validators && !errorValidators && !this.willValidate) || !fieldValue) {
-        return;
-      }
+      if (!validators && !errorValidators) return modelValue;
+      if (!fieldValue) return modelValue;
 
       const fieldValidity = getValidity(validators, modelValue);
       const fieldErrors = getValidity(errorValidators, modelValue);
-      const nodeErrors = this.getNodeErrors();
 
-      let errors = validators
+      const errors = validators
         ? merge(invertValidity(fieldValidity), fieldErrors)
         : fieldErrors;
-
-      if (this.willValidate) {
-        errors = merge(errors, nodeErrors);
-      }
 
       if (!shallowEqual(errors, fieldValue.errors)) {
         dispatch(mergeOrSetErrors(model, errors, options));
       } else if (options.clearIntents) {
         dispatch(actions.clearIntents(model, options.clearIntents));
       }
+
+      return modelValue;
     }
 
     render() {
