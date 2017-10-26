@@ -12,7 +12,7 @@ import omit from '../utils/omit';
 import actionTypes from '../action-types';
 import debounce from '../utils/debounce';
 
-import _getValue, { getCheckboxValue } from '../utils/get-value';
+import _getValue from '../utils/get-value';
 import getValidity from '../utils/get-validity';
 import invertValidity from '../utils/invert-validity';
 import getFieldFromState from '../utils/get-field-from-state';
@@ -32,6 +32,21 @@ const findDOMNode = !isNative
   : null;
 
 const disallowedProps = ['changeAction', 'getFieldFromState', 'store'];
+
+function getToggleValue(props) {
+  const { modelValue, controlProps } = props;
+
+  switch (controlProps.type) {
+    case 'checkbox':
+      return typeof controlProps.value !== 'undefined'
+        ? controlProps.value
+        : !modelValue; // simple checkbox
+
+    case 'radio':
+    default:
+      return controlProps.value;
+  }
+}
 
 function mergeOrSetErrors(model, errors, options) {
   return actions.setErrors(model, errors, {
@@ -208,12 +223,20 @@ function createControlClass(s = defaultStrategy) {
     }
 
     getChangeAction(event) {
-      return this.props.changeAction(
-        this.props.model,
-        this.getValue(event), {
-          currentValue: this.props.modelValue,
-          external: false,
-        });
+      const {
+        model,
+        modelValue,
+        changeAction,
+        getValue,
+      } = this.props;
+      const value = this.isToggle()
+        ? getToggleValue(this.props)
+        : event;
+
+      return changeAction(model, getValue(value), {
+        currentValue: modelValue,
+        external: false,
+      });
     }
 
     getValidateAction(value, eventName) {
@@ -338,10 +361,6 @@ function createControlClass(s = defaultStrategy) {
       }
     }
 
-    getValue(event) {
-      return this.props.getValue(event, this.props);
-    }
-
     isToggle() {
       const { component, controlProps } = this.props;
 
@@ -407,9 +426,11 @@ function createControlClass(s = defaultStrategy) {
     }
 
     handleChange(event) {
+      const { getValue } = this.props;
+
       if (event && event.persist) event.persist();
 
-      this.setViewValue(this.getValue(event));
+      this.setViewValue(getValue(event));
       this.handleUpdate(event);
     }
 
@@ -483,6 +504,7 @@ function createControlClass(s = defaultStrategy) {
         ignore,
         withField,
         fieldValue,
+        getValue,
       } = this.props;
 
       const eventAction = {
@@ -535,7 +557,7 @@ function createControlClass(s = defaultStrategy) {
           },
           dispatchBatchActions,
           parser,
-          (e) => this.getValue(e),
+          getValue,
           persistEventWithCallback(controlEventHandler || identity)
         )(event, withField ? fieldValue : undefined);
       };
@@ -718,7 +740,6 @@ function createControlClass(s = defaultStrategy) {
         ...controlPropsMap.checkbox,
         ...props.mapProps,
       }}
-      getValue={getCheckboxValue}
       changeAction={props.changeAction || s.actions.checkWithValue}
       {...omit(props, 'mapProps')}
     />

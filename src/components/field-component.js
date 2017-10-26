@@ -16,7 +16,6 @@ import shallowCompareWithoutChildren from '../utils/shallow-compare-without-chil
 import getModel from '../utils/get-model';
 import getFieldFromState from '../utils/get-field-from-state';
 import resolveModel from '../utils/resolve-model';
-import { getCheckboxValue } from '../utils/get-value';
 import initialFieldState from '../constants/initial-field-state';
 
 const fieldPropTypes = {
@@ -139,7 +138,6 @@ function createFieldClass(customControlPropsMap = {}, s = defaultStrategy) {
   const defaultControlPropsMap = {
     checkbox: {
       changeAction: s.actions.checkWithValue,
-      getValue: getCheckboxValue,
     },
   };
 
