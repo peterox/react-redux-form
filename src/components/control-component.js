@@ -112,7 +112,6 @@ const defaultStrategy = {
 
 function createControlClass(s = defaultStrategy) {
   const emptyControlProps = {};
-  const emptyMapProps = {};
 
   class Control extends Component {
     constructor(props) {
@@ -205,11 +204,9 @@ function createControlClass(s = defaultStrategy) {
 
           return value;
         });
-      } else if (typeof mapProps === 'function') {
-        return mapProps(originalProps);
       }
 
-      return emptyMapProps;
+      return mapProps(originalProps);
     }
 
     getChangeAction(event) {
@@ -313,7 +310,7 @@ function createControlClass(s = defaultStrategy) {
         props: { fieldValue },
       } = this;
 
-      if (!node || (node && !node.willValidate)) {
+      if (!node || !node.willValidate) {
         this.willValidate = false;
         return null;
       }
@@ -543,10 +540,9 @@ function createControlClass(s = defaultStrategy) {
     attachNode() {
       const node = findDOMNode && findDOMNode(this);
 
-      if (node) {
-        this.node = node;
-        this.willValidate = node.willValidate;
-      }
+      if (node) this.node = node;
+
+      this.willValidate = node.willValidate;
     }
 
     validate(options) {
@@ -621,6 +617,7 @@ function createControlClass(s = defaultStrategy) {
     controlProps: emptyControlProps,
     ignore: [],
     dynamic: false,
+    mapProps: controlPropsMap.default,
     component: 'input',
     withField: true,
     persist: false,
@@ -656,10 +653,10 @@ function createControlClass(s = defaultStrategy) {
   /* eslint-disable react/prop-types */
   const DefaultConnectedControl = (props) => (
     <ConnectedControl
-      mapProps={props.component
-        ? props.mapProps
-        : controlPropsMap.default
-      }
+      mapProps={{
+        ...controlPropsMap.default,
+        ...props.mapProps,
+      }}
       {...omit(props, 'mapProps')}
     />
   );

@@ -2046,9 +2046,6 @@ Object.keys(testContexts).forEach((testKey) => {
         <Control
           model="user.extraData"
           component={ExtraData}
-          mapProps={{
-            value: ({ modelValue }) => modelValue,
-          }}
         />, store);
 
       const div = TestUtils.findRenderedDOMComponentWithTag(control, 'div');
