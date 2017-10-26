@@ -303,9 +303,10 @@ Object.keys(testContexts).forEach((testKey) => {
         test: modelReducer('test', initialState),
       });
 
+      const reactCheckbox = <Control.checkbox model="test.single" />;
       const field = TestUtils.renderIntoDocument(
         <Provider store={store}>
-          <Control.checkbox model="test.single" />
+          {reactCheckbox}
         </Provider>
       );
 
@@ -367,7 +368,7 @@ Object.keys(testContexts).forEach((testKey) => {
 
       const checkbox = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
 
-      it('should initially set the checkbox to checked when defaultChecked is true', () => {
+      it('should initially set the checkbox to checked if the model is truthy', () => {
         assert.equal(checkbox.checked, true);
       });
 
@@ -421,7 +422,7 @@ Object.keys(testContexts).forEach((testKey) => {
 
       const checkbox = TestUtils.findRenderedDOMComponentWithTag(field, 'input');
 
-      it('should initially set the checkbox to unchecked when defaultChecked is false', () => {
+      it('should initially set the checkbox to checked if the model is truthy', () => {
         assert.equal(checkbox.checked, false);
       });
 
