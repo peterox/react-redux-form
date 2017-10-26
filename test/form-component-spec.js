@@ -1,7 +1,6 @@
 /* eslint react/no-multi-comp:0 react/jsx-no-bind:0 */
 import { assert } from 'chai';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import { createStore, combineReducers } from 'redux';
@@ -95,7 +94,7 @@ Object.keys(testContexts).forEach((testKey) => {
           }
         }
         Wrapper.propTypes = {
-          children: PropTypes.object,
+          children: React.PropTypes.object,
         };
         const form = TestUtils.renderIntoDocument(
           <Provider store={store}>
