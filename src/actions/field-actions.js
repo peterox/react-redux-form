@@ -214,11 +214,7 @@ function createFieldActions(s = defaultStrategies) {
           setSubmitted(model, true),
           setValidity(model, response),
         ]));
-      }).catch(rejection => {
-        const error = rejection instanceof Error
-          ? rejection.message
-          : rejection;
-
+      }).catch(error => {
         dispatch(batch(model, [
           setSubmitFailed(model),
           errorsAction(model, error, { async: true }),
