@@ -29,7 +29,6 @@ const fieldPropTypes = {
     PropTypes.string,
   ]),
   parser: PropTypes.func,
-  formatter: PropTypes.func,
   updateOn: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string,
@@ -243,7 +242,6 @@ function createFieldClass(customControlPropsMap = {}, s = defaultStrategy) {
     updateOn: 'change',
     asyncValidateOn: 'blur',
     parser: identity,
-    formatter: identity,
     changeAction: actions.change,
     dynamic: true,
     component: 'div',
