@@ -96,11 +96,7 @@ export function createModelActions(s = defaultStrategies) {
       return change(model, multiValue);
     }
 
-    if (typeof value === 'undefined') {
-      return change(model, !currentValue);
-    } else {
-      return change(model, value);
-    }
+    return change(model, !currentValue);
   };
 
   const check = (model, value) => (dispatch, getState) => {
