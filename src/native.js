@@ -12,22 +12,25 @@ import {
   View,
 } from 'react-native';
 
-import {
-  modelReducer,
-  formReducer,
-  modeled,
-  actions,
-  combineForms,
-  initialFieldState,
-  actionTypes,
-  Form,
-  Fieldset,
-  Errors,
-  batched,
-  form,
-  getField,
-  track,
-} from './index';
+
+import actions from './actions';
+import actionTypes from './action-types';
+import Fieldset from './components/fieldset-component';
+import Form from './components/form-component';
+import Errors from './components/errors-component';
+import modeled from './enhancers/modeled-enhancer';
+import batched from './enhancers/batched-enhancer';
+
+import formReducer from './reducers/form-reducer';
+import initialFieldState from './constants/initial-field-state';
+import combineForms from './reducers/forms-reducer';
+
+import modelReducer from './reducers/model-reducer';
+
+import track from './utils/track';
+
+import form from './form';
+
 import omit from './utils/omit';
 import _get from './utils/get';
 import getFieldFromState from './utils/get-field-from-state';
@@ -191,6 +194,6 @@ export {
   form,
 
   // Utilities
-  getField,
+  getFieldFromState as getField,
   track,
 };
