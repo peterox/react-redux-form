@@ -20,7 +20,6 @@ import combineForms, { createForms } from './reducers/forms-reducer';
 import modelReducer from './reducers/model-reducer';
 
 import track from './utils/track';
-import isValid from './form/is-valid';
 import getFieldFromState from './utils/get-field-from-state';
 import get from './utils/get';
 
@@ -61,5 +60,4 @@ export {
   getFieldFromState as getField,
   get as getModel,
   track,
-  isValid,
 };
