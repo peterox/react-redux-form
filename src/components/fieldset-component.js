@@ -14,7 +14,6 @@ const propTypes = {
     dispatch: PropTypes.func,
     getState: PropTypes.func,
   }),
-  storeSubscription: PropTypes.any,
 };
 
 class Fieldset extends Component {
