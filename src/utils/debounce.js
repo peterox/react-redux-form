@@ -13,10 +13,7 @@ export default function debounce(func, delay) {
     timeout = setTimeout(laterFunc, delay);
   };
 
-  debouncedFunc.flush = () => {
-    clearTimeout(timeout);
-    if (laterFunc) laterFunc();
-  };
+  debouncedFunc.flush = () => laterFunc();
 
   return debouncedFunc;
 }
