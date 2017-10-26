@@ -419,8 +419,6 @@ function createControlClass(s = defaultStrategy) {
         getValue,
       } = this.props;
 
-      if (onKeyPress) onKeyPress(event);
-
       // Get the value from the event
       // in case updateOn="blur" (or something other than "change")
       const parsedValue = this.parse(getValue(event));
@@ -428,6 +426,8 @@ function createControlClass(s = defaultStrategy) {
       if (event.key === 'Enter') {
         dispatch(this.getChangeAction(parsedValue));
       }
+
+      if (onKeyPress) onKeyPress(event);
     }
 
     handleLoad() {
