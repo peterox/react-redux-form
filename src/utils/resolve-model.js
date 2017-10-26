@@ -18,21 +18,16 @@ function resolveModel(model, parentModel) {
   return model;
 }
 
-export default function wrapWithModelResolver(WrappedComponent, deepKeys = [], omitKeys = []) {
+export default function wrapWithModelResolver(WrappedComponent) {
   class ResolvedModelWrapper extends ReactComponent {
     constructor(props, context) {
       super(props, context);
 
       this.model = context.model;
       this.store = context.localStore;
-      this.deepKeys = deepKeys;
-      this.omitKeys = omitKeys;
     }
     shouldComponentUpdate(nextProps) {
-      return !shallowEqual(this.props, nextProps, {
-        deepKeys: this.deepKeys,
-        omitKeys: this.omitKeys,
-      });
+      return !shallowEqual(this.props, nextProps);
     }
     render() {
       const resolvedModel = resolveModel(
