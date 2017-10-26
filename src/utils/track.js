@@ -1,6 +1,6 @@
 import findKey from '../utils/find-key';
 import _get from '../utils/get';
-import { createIteratee } from '../utils/iteratee';
+import iteratee from '../utils/iteratee';
 import isMulti from '../utils/is-multi';
 
 const defaultStrategy = {
@@ -8,8 +8,6 @@ const defaultStrategy = {
 };
 
 function createTrack(s = defaultStrategy) {
-  const iteratee = createIteratee(s);
-
   return function track(model, ...predicates) {
     const isPartial = model[0] === '.';
 
