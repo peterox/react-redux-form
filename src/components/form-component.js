@@ -103,8 +103,8 @@ function createFormClass(s = defaultStrategy) {
       }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-      return deepCompareChildren(this, nextProps, nextState);
+    shouldComponentUpdate(nextProps) {
+      return deepCompareChildren(this, nextProps);
     }
 
     componentDidUpdate(prevProps) {

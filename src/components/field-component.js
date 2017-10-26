@@ -148,11 +148,11 @@ function createFieldClass(customControlPropsMap = {}, s = defaultStrategy) {
   };
 
   class Field extends Component {
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
       const { dynamic } = this.props;
 
       if (dynamic) {
-        return deepCompareChildren(this, nextProps, nextState);
+        return deepCompareChildren(this, nextProps);
       }
 
       return shallowCompareWithoutChildren(this, nextProps);
