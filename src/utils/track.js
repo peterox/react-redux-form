@@ -1,7 +1,6 @@
 import findKey from '../utils/find-key';
 import _get from '../utils/get';
 import iteratee from '../utils/iteratee';
-import isMulti from '../utils/is-multi';
 
 const defaultStrategy = {
   get: _get,
@@ -39,12 +38,8 @@ function createTrack(s = defaultStrategy) {
         fullPath += `.${subPath}`;
       });
 
-      if (isMulti(childModel) && predicates.length < childModelPaths.length) {
-        fullPath += '[]';
-      }
-
       return isPartial
-        ? `${parentModel}.${fullPath}`
+        ? [parentModel, fullPath].join('.')
         : fullPath;
     };
   };
