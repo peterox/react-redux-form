@@ -92,15 +92,13 @@ class UserForm extends React.Component {
   }
   render() {
     return (
-      <Form
-        model="user"
-        onSubmit={(user) => this.handleSubmit(user)}
-      >
-        <label htmlFor="user.firstName">First name:</label>
-        <Control.text model="user.firstName" id="user.firstName" />
+      <Form model="user"
+        onSubmit={(user) => this.handleSubmit(user)}>
+        <label>First name:</label>
+        <Control.text model="user.firstName" />
 
-        <label htmlFor="user.lastName">Last name:</label>
-        <Control.text model="user.lastName" id="user.lastName" />
+        <label>Last name:</label>
+        <Control.text model="user.lastName" />
 
         <button type="submit">
           Finish registration!
