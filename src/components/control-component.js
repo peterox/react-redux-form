@@ -662,24 +662,23 @@ function createControlClass(s = defaultStrategy) {
     const modelString = getModel(model, state);
     const fieldValue = s.getFieldFromState(state, modelString)
       || initialFieldState;
-    const modelValue = s.get(state, modelString);
 
     return {
       model: modelString,
-      modelValue,
+      modelValue: s.get(state, modelString),
       fieldValue,
       controlProps: finalControlProps,
     };
   }
 
   const ConnectedControl = resolveModel(connect(mapStateToProps, null, null, {
-    areOwnPropsEqual(nextOwnProps, ownProps) {
-      return shallowEqual(nextOwnProps, ownProps, {
+    areOwnPropsEqual(ownProps, nextOwnProps) {
+      return shallowEqual(ownProps, nextOwnProps, {
         omitKeys: ['mapProps'],
       });
     },
-    areStatePropsEqual(nextStateProps, stateProps) {
-      return shallowEqual(nextStateProps, stateProps, {
+    areStatePropsEqual(stateProps, nextStateProps) {
+      return shallowEqual(stateProps, nextStateProps, {
         deepKeys: ['controlProps'],
       });
     },
