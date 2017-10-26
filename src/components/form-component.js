@@ -50,7 +50,6 @@ const propTypes = {
   getRef: PropTypes.func,
   getDispatch: PropTypes.func,
   onBeforeSubmit: PropTypes.func,
-  hideNativeErrors: PropTypes.bool,
 
   // standard HTML attributes
   action: PropTypes.string,
@@ -368,8 +367,6 @@ function createFormClass(s = defaultStrategy) {
         component,
         children,
         formValue,
-        hideNativeErrors,
-        noValidate,
       } = this.props;
 
       const allowedProps = omit(this.props, disallowedPropTypeKeys);
@@ -383,7 +380,6 @@ function createFormClass(s = defaultStrategy) {
           onSubmit: this.handleSubmit,
           onReset: this.handleReset,
           ref: this.attachNode,
-          noValidate: hideNativeErrors || noValidate,
         }, renderableChildren);
     }
   }
