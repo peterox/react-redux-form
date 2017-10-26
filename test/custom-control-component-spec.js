@@ -364,7 +364,7 @@ describe('custom <Control /> components', () => {
 
     TestUtils.renderIntoDocument(
       <Provider store={store}>
-        <Control.custom
+        <Control
           model="test.foo"
           component={CustomControl}
         />

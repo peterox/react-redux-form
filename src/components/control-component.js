@@ -656,15 +656,13 @@ function createControlClass(s = defaultStrategy) {
   /* eslint-disable react/prop-types */
   const DefaultConnectedControl = (props) => (
     <ConnectedControl
-      mapProps={{
-        ...controlPropsMap.default,
-        ...props.mapProps,
-      }}
+      mapProps={props.component
+        ? props.mapProps
+        : controlPropsMap.default
+      }
       {...omit(props, 'mapProps')}
     />
   );
-
-  DefaultConnectedControl.custom = ConnectedControl;
 
   DefaultConnectedControl.input = (props) => (
     <ConnectedControl
