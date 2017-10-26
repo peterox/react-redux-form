@@ -41,6 +41,7 @@ function createModeler(strategy = defaultStrategy) {
 
       switch (action.type) {
         case actionTypes.CHANGE:
+        case actionTypes.LOAD:
           if (!localPath.length) {
             return action.value;
           }
