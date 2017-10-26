@@ -6,7 +6,7 @@ The `<Form>` component is a decorated `<form>` component with a few helpful prop
 import { Form, Control } from 'react-redux-form';
 import { isEmail, isEmpty } from 'validator';
 
-const required = str => !isEmpty(str);
+const required = isEmpty;
 
 const passwordsMatch = ({ password, confirmPassword }) => {
   return password === confirmPassword;
