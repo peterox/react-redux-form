@@ -67,7 +67,6 @@ const fieldPropTypes = {
     dispatch: PropTypes.func,
     getState: PropTypes.func,
   }),
-  storeSubscription: PropTypes.any,
 };
 
 function getControlType(control, props, options) {
