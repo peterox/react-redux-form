@@ -247,7 +247,7 @@ function createControlClass(s = defaultStrategy) {
         fieldValue,
       } = this.props;
 
-      if (!validators && !errors && !this.willValidate) return false;
+      if (!validators && !errors) return false;
 
       const nodeErrors = this.getNodeErrors();
 
@@ -560,8 +560,6 @@ function createControlClass(s = defaultStrategy) {
       const node = findDOMNode && findDOMNode(this);
 
       if (node) this.node = node;
-
-      this.willValidate = node.willValidate;
     }
 
     validate(options) {
