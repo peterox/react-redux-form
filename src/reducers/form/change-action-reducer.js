@@ -135,7 +135,9 @@ export default function changeActionReducer(state, action, localPath) {
   const updatedState = assocIn(state, localPath, updatedField, (form) => {
     if (!form.$form) return form;
 
-    const formValue = getFormValue(form);
+    const formValue = action.state
+      ? get(action.state, form.$form.model)
+      : getFormValue(form);
 
     const formUpdates = {
       ...form.$form,
