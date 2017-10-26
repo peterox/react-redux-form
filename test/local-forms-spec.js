@@ -11,21 +11,16 @@ describe('local forms', () => {
 
   describe('standard usage with onUpdate', () => {
     let innerFormState;
-    let dispatch;
 
     const form = TestUtils.renderIntoDocument(
-      <LocalForm
-        getDispatch={d => dispatch = d}
-        onUpdate={(formValue) => innerFormState = formValue}
-      >
+      <LocalForm onUpdate={(formValue) => innerFormState = formValue}>
         <Control.text model=".foo" />
       </LocalForm>
     );
 
     const input = TestUtils.findRenderedDOMComponentWithTag(form, 'input');
 
-    it('should update with the loaded form value', () => {
-      dispatch(actions.setPristine('local'));
+    it('should initially update with the loaded form value', () => {
       assert.containSubset(innerFormState, {
         $form: {
           pristine: true,
@@ -50,10 +45,10 @@ describe('local forms', () => {
   });
 
   describe('standard usage with onChange', () => {
-    let dispatch;
+    let innerModelState;
 
     const form = TestUtils.renderIntoDocument(
-      <LocalForm getDispatch={d => dispatch = d}>
+      <LocalForm onChange={(modelValue) => innerModelState = modelValue}>
         <Control.text model=".foo" />
       </LocalForm>
     );
@@ -61,22 +56,25 @@ describe('local forms', () => {
     const input = TestUtils.findRenderedDOMComponentWithTag(form, 'input');
 
     it('should initially have an empty object (by default) as the model value', () => {
-      assert.equal(input.value, ''); // { foo: '' }
+      assert.deepEqual(innerModelState, {});
     });
 
     it('should behave like a normal form, with an internal Redux state', () => {
-      dispatch(actions.change('local', { foo: 'changed' }));
+      input.value = 'changed';
+      TestUtils.Simulate.change(input);
 
-      assert.equal(input.value, 'changed');
+      assert.deepEqual(innerModelState, {
+        foo: 'changed',
+      });
     });
   });
 
   describe('onChange with initialState', () => {
-    let dispatch;
+    let innerModelState;
 
     const form = TestUtils.renderIntoDocument(
       <LocalForm
-        getDispatch={d => dispatch = d}
+        onChange={(modelValue) => innerModelState = modelValue}
         initialState={{ foo: 'bar' }}
       >
         <Control.text model=".foo" />
@@ -86,13 +84,16 @@ describe('local forms', () => {
     const input = TestUtils.findRenderedDOMComponentWithTag(form, 'input');
 
     it('should initially have an empty object (by default) as the model value', () => {
-      assert.equal(input.value, 'bar');
+      assert.deepEqual(innerModelState, { foo: 'bar' });
     });
 
     it('should behave like a normal form, with an internal Redux state', () => {
-      dispatch(actions.change('local', { foo: 'changed' }));
+      input.value = 'changed';
+      TestUtils.Simulate.change(input);
 
-      assert.equal(input.value, 'changed');
+      assert.deepEqual(innerModelState, {
+        foo: 'changed',
+      });
     });
   });
 

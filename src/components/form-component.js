@@ -91,6 +91,9 @@ function createFormClass(s = defaultStrategy) {
     }
 
     componentDidMount() {
+      this.handleUpdate();
+      this.handleChange();
+
       if (containsEvent(this.props.validateOn, 'change')) {
         this.validate(this.props, true);
       }
