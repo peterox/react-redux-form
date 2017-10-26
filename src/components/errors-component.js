@@ -31,7 +31,7 @@ const propTypes = {
   // Provided props
   model: PropTypes.string.isRequired,
   messages: PropTypes.objectOf(PropTypes.oneOfType([
-    PropTypes.node,
+    PropTypes.string,
     PropTypes.func,
     PropTypes.bool,
   ])),
