@@ -213,7 +213,6 @@ export interface ControlProps<T> extends React.HTMLProps<T> {
 }
 
 export class Control<T> extends React.Component<ControlProps<T>, {}> {
-    static custom: React.ComponentClass<ControlProps<HTMLInputElement>>;
     static input: React.ComponentClass<ControlProps<HTMLInputElement>>;
     static text: React.ComponentClass<ControlProps<HTMLInputElement>>;
     static textarea: React.ComponentClass<ControlProps<HTMLTextAreaElement>>;
