@@ -22,7 +22,7 @@ import getFormValue from '../utils/get-form-value';
 const resetFieldState = (field, customInitialFieldState) => {
   if (!isPlainObject(field)) return field;
 
-  const intents = [{ type: 'reset' }];
+  const intents = [{ type: 'validate' }];
   let resetValue = getMeta(field, 'initialValue');
   const loadedValue = getMeta(field, 'loadedValue');
 
