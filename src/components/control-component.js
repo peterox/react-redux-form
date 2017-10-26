@@ -651,18 +651,7 @@ function createControlClass(s = defaultStrategy) {
     };
   }
 
-  const ConnectedControl = resolveModel(connect(mapStateToProps, null, null, {
-    areOwnPropsEqual(ownProps, nextOwnProps) {
-      return shallowEqual(ownProps, nextOwnProps, {
-        omitKeys: ['mapProps'],
-      });
-    },
-    areStatePropsEqual(stateProps, nextStateProps) {
-      return shallowEqual(stateProps, nextStateProps, {
-        deepKeys: ['controlProps'],
-      });
-    },
-  })(Control), ['controlProps'], ['mapProps']);
+  const ConnectedControl = resolveModel(connect(mapStateToProps)(Control));
 
   /* eslint-disable react/prop-types */
   const DefaultConnectedControl = (props) => (
