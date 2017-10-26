@@ -352,7 +352,7 @@ Object.keys(testContexts).forEach((testKey) => {
       });
     });
 
-    describe('with <Control.checkbox /> (single toggle, dynamic form, defaultChecked)', () => {
+    describe('with <Control.checkbox /> (single toggle, dynamic form data, checked by default)', () => {
       const initialState = getInitialState({ single: true });
       const store = testCreateStore({
         testForm: formReducer('test'),
@@ -406,7 +406,7 @@ Object.keys(testContexts).forEach((testKey) => {
       });
     });
 
-    describe('with <Control.checkbox /> (single toggle, dynamic form, !defaultChecked)', () => {
+    describe('with <Control.checkbox /> (single toggle, dynamic form data, unchecked by default)', () => {
       const initialState = getInitialState({ single: true });
       const store = testCreateStore({
         testForm: formReducer('test'),
