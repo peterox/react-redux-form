@@ -11,20 +11,6 @@ class LocalForm extends React.Component {
     this.store = props.store || createStore(combineForms({
       [props.model]: props.initialState,
     }));
-
-    this.dispatch = (action) => {
-      if (typeof action === 'function') {
-        return action(this.store.dispatch, this.store.getState);
-      }
-
-      return this.store.dispatch(action);
-    };
-  }
-
-  componentDidMount() {
-    if (this.props.getDispatch) {
-      this.props.getDispatch(this.dispatch);
-    }
   }
 
   render() {
@@ -48,7 +34,6 @@ LocalForm.propTypes = {
   // provided props
   initialState: PropTypes.any,
   model: PropTypes.string.isRequired,
-  getDispatch: PropTypes.func,
 };
 
 LocalForm.defaultProps = {
