@@ -28,8 +28,6 @@ import isNative from '../utils/is-native';
 import initialFieldState from '../constants/initial-field-state';
 import containsEvent from '../utils/contains-event';
 
-import ComponentWrapper from './control-strip-defaults-component';
-
 const findDOMNode = !isNative
   ? require('react-dom').findDOMNode
   : null;
@@ -611,29 +609,23 @@ function createControlClass(s = defaultStrategy) {
       const mappedProps = omit(this.getMappedProps(), disallowedProps);
 
       if (getRef) {
-        mappedProps.getRef = getRef;
+        mappedProps.ref = getRef;
       }
 
       // If there is an existing control, clone it
       if (control) {
         return cloneElement(
           control,
-          {
-            ...mappedProps,
-            defaultValue: undefined,
-            defaultChecked: undefined,
-          },
-          controlProps.children
-        );
+          mappedProps,
+          controlProps.children);
       }
+
       return createElement(
-        ComponentWrapper,
+        component,
         {
-          component,
           ...controlProps,
           ...mappedProps,
-        }
-      );
+        });
     }
   }
 

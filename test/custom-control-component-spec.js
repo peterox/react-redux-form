@@ -40,7 +40,7 @@ describe('custom <Control /> components', () => {
     }
   }
 
-  FamiliarText.propTypes = { onChange: PropTypes.func };
+  FamiliarText.propTypes = { onChange: PropTypes.function };
 
   class CustomCheckbox extends Component {
     render() {
@@ -69,7 +69,7 @@ describe('custom <Control /> components', () => {
     }
   };
 
-  MinifiedText.propTypes = { onChange: PropTypes.func };
+  MinifiedText.propTypes = { onChange: PropTypes.function };
 
   it('should handle custom prop mappings', () => {
     const store = testCreateStore({
@@ -237,14 +237,11 @@ describe('custom <Control /> components', () => {
 
     class TextInput extends React.Component {
       render() {
-        /* eslint-disable no-unused-vars */
-        const { onChangeText, defaultValue, focus, touched, ...otherProps } = this.props;
-        /* eslint-enable */
         return (
           <div>
             <input
-              {...otherProps}
-              onChange={onChangeText}
+              {...this.props}
+              onChange={this.props.onChangeText}
             />
           </div>
         );
@@ -253,9 +250,6 @@ describe('custom <Control /> components', () => {
 
     TextInput.propTypes = {
       onChangeText: PropTypes.func,
-      defaultValue: PropTypes.string,
-      focus: PropTypes.bool,
-      touched: PropTypes.bool,
     };
 
     const mapProps = {
@@ -302,7 +296,7 @@ describe('custom <Control /> components', () => {
 
     class TextInput extends React.Component {
       render() {
-        const { focus, touched, ...otherProps } = this.props;
+        const { focus, touched } = this.props;
         const className = [
           focus ? 'focus' : '',
           touched ? 'touched' : '',
@@ -312,7 +306,7 @@ describe('custom <Control /> components', () => {
           <div>
             <input
               className={className}
-              {...otherProps}
+              {...this.props}
               onChange={this.props.onChangeText}
             />
           </div>
