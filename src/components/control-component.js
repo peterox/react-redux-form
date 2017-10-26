@@ -747,24 +747,6 @@ function createControlClass(s = defaultStrategy) {
 
   DefaultConnectedControl.text = DefaultConnectedControlText;
 
-  class DefaultConnectedControlPassword extends DefaultConnectedControl {
-    render() {
-      return (
-        <ConnectedControl
-          component="input"
-          {...this.props}
-          mapProps={{
-            ...controlPropsMap.text,
-            type: this.props.type || 'password',
-            ...this.props.mapProps,
-          }}
-        />
-      );
-    }
-  }
-
-  DefaultConnectedControl.password = DefaultConnectedControlPassword;
-
   class DefaultConnectedControlTextArea extends DefaultConnectedControl {
     render() {
       return (
