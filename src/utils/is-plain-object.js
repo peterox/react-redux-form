@@ -1,10 +1,6 @@
 // Adapted from https://github.com/jonschlinkert/is-plain-object
-export function isObjectLike(val) {
-  return val != null && typeof val === 'object';
-}
-
 function isObject(val) {
-  return isObjectLike(val) && Array.isArray(val) === false;
+  return val != null && typeof val === 'object' && Array.isArray(val) === false;
 }
 
 function isObjectObject(o) {
