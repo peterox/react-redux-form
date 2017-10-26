@@ -100,7 +100,6 @@ const propTypes = {
   debounce: PropTypes.number,
   persist: PropTypes.bool,
   getValue: PropTypes.func,
-  isToggle: PropTypes.bool,
 };
 
 const defaultStrategy = {
@@ -334,13 +333,19 @@ function createControlClass(s = defaultStrategy) {
     }
 
     setViewValue(viewValue) {
-      if (!this.props.isToggle) {
+      if (!this.isToggle()) {
         this.setState({ viewValue: this.parse(viewValue) });
       }
     }
 
     getValue(event) {
       return this.props.getValue(event, this.props);
+    }
+
+    isToggle() {
+      const { component, controlProps } = this.props;
+
+      return component === 'input' && ~['radio', 'checkbox'].indexOf(controlProps.type);
     }
 
     handleIntents() {
@@ -366,7 +371,7 @@ function createControlClass(s = defaultStrategy) {
 
             if ((focused && this.node.focus)
               && (
-                !this.props.isToggle
+                !this.isToggle()
                 || typeof intent.value === 'undefined'
                 || intent.value === controlProps.value
               )) {
@@ -512,7 +517,7 @@ function createControlClass(s = defaultStrategy) {
             : event;
         }
 
-        if (this.props.isToggle) {
+        if (this.isToggle()) {
           return compose(
             dispatchBatchActions,
             persistEventWithCallback(controlEventHandler || identity)
@@ -621,7 +626,6 @@ function createControlClass(s = defaultStrategy) {
     withField: true,
     persist: false,
     getValue: _getValue,
-    isToggle: false,
   };
 
   function mapStateToProps(state, props) {
@@ -698,7 +702,6 @@ function createControlClass(s = defaultStrategy) {
     <ConnectedControl
       component="input"
       type="radio"
-      isToggle
       mapProps={{
         ...controlPropsMap.radio,
         ...props.mapProps,
@@ -711,7 +714,6 @@ function createControlClass(s = defaultStrategy) {
     <ConnectedControl
       component="input"
       type="checkbox"
-      isToggle
       mapProps={{
         ...controlPropsMap.checkbox,
         ...props.mapProps,
