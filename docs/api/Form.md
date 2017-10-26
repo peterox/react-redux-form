@@ -4,9 +4,9 @@ The `<Form>` component is a decorated `<form>` component with a few helpful prop
 
 ```jsx
 import { Form, Control } from 'react-redux-form';
-import { isEmail, isEmpty } from 'validator';
+import { isEmail, isNull } from 'validator';
 
-const required = isEmpty;
+const required = isNull;
 
 const passwordsMatch = ({ password, confirmPassword }) => {
   return password === confirmPassword;
